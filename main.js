@@ -6,18 +6,20 @@ document.getElementById("btnTinhTienHang").onclick = function (event) {
     var donGia = document.getElementById("txtDonGia").value;
     var total = 0;
 
-    if(soLuong >= 101) {
-       total = (soLuong * donGia) - ((soLuong * donGia) * 12 / 100);
-    } else if (soLuong < 50) {
+    if (0 < soLuong && soLuong <50){
         total = soLuong * donGia;
+    } else if(50 <= soLuong && soLuong <= 100){
+        total = 49 * donGia +(soLuong- 49) *donGia *0.92;
+    } else if(soLuong > 100) {
+        total = 49 * donGia + 51 * donGia * 0.92 + (soLuong - 49 - 51) * donGia * 0.88;
     } else {
-        total = (soLuong * donGia) - ((soLuong * donGia) * 8 / 100);
+        alert("Số lượng không hợp lệ!");
     }
 
     var currentFormat = new Intl.NumberFormat("vn-VN");
     var totalFormat = currentFormat.format(total);
 
-    var info = "Kết quả: " + totalFormat + " vnd";
+    var info = "Thành tiền: " + totalFormat + " vnd";
     
     document.getElementById("footerCard").innerHTML = info;
     document.getElementById("footerCard").classList.add("alert", "alert-success");
